@@ -8,10 +8,9 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import image from "../images/contemplative-reptile.jpg";
 
 const ContentCard = ({ article }) => {
-  const { author, title, description, url, urlToImage, publishedAt } = article;
+  const { author, title, description, url, urlToImage } = article;
   return (
     <Card sx={{ maxWidth: 400 }}>
       <CardActionArea>
@@ -25,17 +24,20 @@ const ContentCard = ({ article }) => {
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body3" color="text.secondary">
             {author}
           </Typography>
           <Typography variant="body2" color="text.secondary">
+            <br />
             {description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
+        {/* <Button size="small">Share</Button> */}
+        <Button href={url} target="_blank" size="small">
+          Learn More
+        </Button>
       </CardActions>
     </Card>
   );
