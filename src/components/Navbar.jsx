@@ -11,7 +11,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ContentDrawer from "./ContentDrawer";
 
-const Navbar = () => {
+const Navbar = ({ setCategory }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -22,7 +22,7 @@ const Navbar = () => {
       return;
     }
 
-    setDrawerOpen(!drawerOpen);
+    setDrawerOpen(open);
   };
 
   return (
@@ -46,7 +46,7 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
-        <ContentDrawer toggleDrawer={toggleDrawer} />
+        <ContentDrawer toggleDrawer={toggleDrawer} setCategory={setCategory} />
       </Drawer>
     </Box>
   );
