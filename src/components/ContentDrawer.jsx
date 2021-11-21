@@ -9,6 +9,23 @@ import {
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import AnnouncementIcon from "@mui/icons-material/Announcement";
+import BusinessIcon from "@mui/icons-material/Business";
+import TheatersIcon from "@mui/icons-material/Theaters";
+import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
+import ScienceIcon from "@mui/icons-material/Science";
+import SportsBasketballIcon from "@mui/icons-material/SportsBasketball";
+import DesktopWindowsIcon from "@mui/icons-material/DesktopWindows";
+
+const CATEGORY_ICONS = {
+  General: <AnnouncementIcon />,
+  Business: <BusinessIcon />,
+  Entertainment: <TheatersIcon />,
+  Health: <HealthAndSafetyIcon />,
+  Science: <ScienceIcon />,
+  Sports: <SportsBasketballIcon />,
+  Technology: <DesktopWindowsIcon />,
+};
 
 const ContentDrawer = ({ toggleDrawer, setCategory }) => {
   return (
@@ -29,9 +46,7 @@ const ContentDrawer = ({ toggleDrawer, setCategory }) => {
           "Technology",
         ].map((text, index) => (
           <ListItem button key={text} onClick={() => setCategory(text)}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
+            <ListItemIcon>{CATEGORY_ICONS[text]}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}

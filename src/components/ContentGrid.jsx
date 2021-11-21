@@ -42,13 +42,13 @@ const ContentGrid = ({ category }) => {
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 10, md: 16 }}
+        columns={{ xs: 4, sm: 9, md: 12 }}
       >
-        {(loading ? Array.from(new Array(16)) : articles).map(
+        {(loading ? Array.from(new Array(12)) : articles).map(
           (article, index) => (
-            <Grid item xs={4} sm={5} md={4} key={index}>
+            <Grid item xs={4} sm={3} md={3} key={index}>
               {loading ? (
-                <Skeleton variant="rectangular" maxWidth={400} height={300} />
+                <Skeleton variant="rectangular" width={300} height={300} />
               ) : (
                 <ContentCard article={article} />
               )}

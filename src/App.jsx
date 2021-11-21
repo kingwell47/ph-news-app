@@ -7,8 +7,8 @@ function App() {
   const [category, setCategory] = useState("General");
   return (
     <div className="App">
-      <Navbar setCategory={setCategory} />
-      <Container maxWidth="xl" sx={{ paddingTop: 5 }}>
+      <Navbar category={category} setCategory={setCategory} />
+      <Container maxWidth="xl" sx={{ paddingTop: 15, paddingBottom: 5 }}>
         <ContentGrid category={category} />
       </Container>
     </div>
