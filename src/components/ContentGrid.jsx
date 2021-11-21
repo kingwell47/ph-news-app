@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Grid, Box } from "@mui/material";
 import ContentCard from "./ContentCard";
-import dummyData from "./sampleData.json";
 
 require("dotenv").config();
-
-const DUMMY_DATA = dummyData.articles;
 
 const api = axios.create({
   baseURL: "https://newsapi.org/v2/top-headlines",
@@ -36,10 +33,10 @@ const ContentGrid = () => {
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
+        columns={{ xs: 4, sm: 10, md: 16 }}
       >
         {articles.map((article, index) => (
-          <Grid item xs={2} sm={4} md={4} key={index}>
+          <Grid item xs={4} sm={5} md={4} key={index}>
             <ContentCard article={article} />
           </Grid>
         ))}

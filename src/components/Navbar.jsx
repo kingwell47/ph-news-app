@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Box,
+  Drawer,
   Toolbar,
   Typography,
   Button,
   IconButton,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import ContentDrawer from "./ContentDrawer";
 
 const Navbar = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setDrawerOpen(!drawerOpen);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -20,6 +35,7 @@ const Navbar = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={toggleDrawer(true)}
           >
             <MenuIcon />
           </IconButton>
@@ -29,6 +45,9 @@ const Navbar = () => {
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
+      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+        <ContentDrawer toggleDrawer={toggleDrawer} />
+      </Drawer>
     </Box>
   );
 };

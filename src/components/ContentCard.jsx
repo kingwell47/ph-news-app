@@ -8,6 +8,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import reptile from "../images/contemplative-reptile.jpg";
 
 const ContentCard = ({ article }) => {
   const { author, title, description, url, urlToImage } = article;
@@ -16,8 +17,8 @@ const ContentCard = ({ article }) => {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
-          image={urlToImage}
+          height="250"
+          image={urlToImage ? urlToImage : reptile}
           alt={title}
         />
         <CardContent>
