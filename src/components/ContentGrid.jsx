@@ -6,36 +6,54 @@ import ContentCard from "./ContentCard";
 require("dotenv").config();
 
 const api = axios.create({
-  baseURL: "https://newsapi.org/v2/top-headlines",
+  baseURL: process.env.REACT_APP_BASE_URL,
 });
 
-const ContentGrid = ({ category }) => {
+const ContentGrid = ({ category, topic }) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       setLoading(true);
-      let data = await api
-        .get("/", {
-          params: {
-            country: "ph",
-            category,
-            apiKey: process.env.REACT_APP_NEWS_API_KEY,
-          },
-        })
-        .then(({ data }) => data)
-        .catch((err) => console.log(err));
-      if (data.status === "ok") {
-        setArticles(data.articles);
-        setLoading(false);
-      } else if (data.status === "error") {
-        console.log(data.code, data.message);
+      if (!topic) {
+        let data = await api
+          .get("/top-headlines", {
+            params: {
+              country: "ph",
+              category,
+              apiKey: process.env.REACT_APP_NEWS_API_KEY,
+            },
+          })
+          .then(({ data }) => data)
+          .catch((err) => console.log(err));
+        if (data.status === "ok") {
+          setArticles(data.articles);
+          setLoading(false);
+        } else if (data.status === "error") {
+          console.log(data.code, data.message);
+        }
+      } else if (topic) {
+        let data = await api
+          .get("/everything", {
+            params: {
+              q: topic,
+              apiKey: process.env.REACT_APP_NEWS_API_KEY,
+            },
+          })
+          .then(({ data }) => data)
+          .catch((err) => console.log(err));
+        if (data.status === "ok") {
+          setArticles(data.articles);
+          setLoading(false);
+        } else if (data.status === "error") {
+          console.log(data.code, data.message);
+        }
       }
     };
 
     getData();
-  }, [category]);
+  }, [category, topic]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>

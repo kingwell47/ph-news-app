@@ -5,7 +5,6 @@ import {
   Drawer,
   Toolbar,
   Typography,
-  Button,
   IconButton,
   InputBase,
 } from "@mui/material";
@@ -14,7 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import ContentDrawer from "./ContentDrawer";
 
-const Navbar = ({ category, setCategory }) => {
+const Navbar = ({ category, setCategory, setTopic, topic }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -26,6 +25,12 @@ const Navbar = ({ category, setCategory }) => {
     }
 
     setDrawerOpen(open);
+  };
+
+  const handleSearch = (e) => {
+    if (e.keyCode === 13) {
+      setTopic(e.target.value);
+    }
   };
 
   const Search = styled("div")(({ theme }) => ({
@@ -68,6 +73,11 @@ const Navbar = ({ category, setCategory }) => {
     },
   }));
 
+  const backToGeneral = () => {
+    setCategory("General");
+    setTopic("");
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed">
@@ -79,14 +89,25 @@ const Navbar = ({ category, setCategory }) => {
             aria-label="menu"
             sx={{ mr: 2 }}
             onClick={toggleDrawer(true)}
+            title="Categories"
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, cursor: "pointer" }}
+            onClick={backToGeneral}
+          >
             PH Top News
           </Typography>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {category}
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, cursor: "pointer" }}
+            onClick={toggleDrawer(true)}
+          >
+            {topic ? topic : category}
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -95,13 +116,18 @@ const Navbar = ({ category, setCategory }) => {
             <StyledInputBase
               placeholder="Search for a topic…"
               inputProps={{ "aria-label": "search" }}
+              onKeyDown={(e) => handleSearch(e)}
             />
           </Search>
           {/* <Button color="inherit">Login</Button> */}
         </Toolbar>
       </AppBar>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
-        <ContentDrawer toggleDrawer={toggleDrawer} setCategory={setCategory} />
+        <ContentDrawer
+          toggleDrawer={toggleDrawer}
+          setCategory={setCategory}
+          setTopic={setTopic}
+        />
       </Drawer>
     </Box>
   );

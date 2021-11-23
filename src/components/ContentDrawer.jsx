@@ -27,7 +27,12 @@ const CATEGORY_ICONS = {
   Technology: <DesktopWindowsIcon />,
 };
 
-const ContentDrawer = ({ toggleDrawer, setCategory }) => {
+const ContentDrawer = ({ toggleDrawer, setCategory, setTopic }) => {
+  const handleClick = (text) => {
+    setCategory(text);
+    setTopic("");
+  };
+
   return (
     <Box
       sx={{ width: 250 }}
@@ -45,13 +50,13 @@ const ContentDrawer = ({ toggleDrawer, setCategory }) => {
           "Sports",
           "Technology",
         ].map((text, index) => (
-          <ListItem button key={text} onClick={() => setCategory(text)}>
+          <ListItem button key={text} onClick={() => handleClick(text)}>
             <ListItemIcon>{CATEGORY_ICONS[text]}</ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
-      <Divider />
+      {/* <Divider />
       <List>
         {["All mail", "Trash", "Spam"].map((text, index) => (
           <ListItem button key={text}>
@@ -61,7 +66,7 @@ const ContentDrawer = ({ toggleDrawer, setCategory }) => {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </Box>
   );
 };

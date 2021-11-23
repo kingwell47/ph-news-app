@@ -23,18 +23,23 @@ const ContentCard = ({ article }) => {
         <Typography gutterBottom variant="h5" component="div">
           {title}
         </Typography>
-        <Typography variant="body3" color="text.secondary">
+        <Typography variant="body1" color="text.secondary" gutterBottom>
           {author}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          <br />
           {description}
         </Typography>
       </CardContent>
 
       <CardActions>
         {/* <Button size="small">Share</Button> */}
-        <Button href={url} target="_blank" size="small">
+        <Button
+          href={url}
+          target="_blank"
+          size="small"
+          variant="contained"
+          disableElevation
+        >
           Learn More
         </Button>
       </CardActions>
