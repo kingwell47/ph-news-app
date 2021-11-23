@@ -17,7 +17,7 @@ const ContentGrid = ({ category, topic }) => {
     const getData = async () => {
       setLoading(true);
       if (!topic) {
-        let data = await api
+        await api
           .get("/top-headlines", {
             params: {
               country: "ph",
@@ -25,30 +25,32 @@ const ContentGrid = ({ category, topic }) => {
               apiKey: process.env.REACT_APP_NEWS_API_KEY,
             },
           })
-          .then(({ data }) => data)
+          .then(({ data }) => {
+            if (data.status === "ok") {
+              setArticles(data.articles);
+              setLoading(false);
+            } else if (data.status === "error") {
+              console.log(data.code, data.message);
+            }
+          })
           .catch((err) => console.log(err));
-        if ((await data.status) === "ok") {
-          setArticles(data.articles);
-          setLoading(false);
-        } else if ((await data.status) === "error") {
-          console.log(data.code, data.message);
-        }
       } else if (topic) {
-        let data = await api
+        await api
           .get("/everything", {
             params: {
               q: topic,
               apiKey: process.env.REACT_APP_NEWS_API_KEY,
             },
           })
-          .then(({ data }) => data)
+          .then(({ data }) => {
+            if (data.status === "ok") {
+              setArticles(data.articles);
+              setLoading(false);
+            } else if (data.status === "error") {
+              console.log(data.code, data.message);
+            }
+          })
           .catch((err) => console.log(err));
-        if ((await data.status) === "ok") {
-          setArticles(data.articles);
-          setLoading(false);
-        } else if ((await data.status) === "error") {
-          console.log(data.code, data.message);
-        }
       }
     };
 
