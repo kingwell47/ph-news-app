@@ -27,10 +27,10 @@ const ContentGrid = ({ category, topic }) => {
           })
           .then(({ data }) => data)
           .catch((err) => console.log(err));
-        if (data.status === "ok") {
+        if ((await data.status) === "ok") {
           setArticles(data.articles);
           setLoading(false);
-        } else if (data.status === "error") {
+        } else if ((await data.status) === "error") {
           console.log(data.code, data.message);
         }
       } else if (topic) {
@@ -43,10 +43,10 @@ const ContentGrid = ({ category, topic }) => {
           })
           .then(({ data }) => data)
           .catch((err) => console.log(err));
-        if (data.status === "ok") {
+        if ((await data.status) === "ok") {
           setArticles(data.articles);
           setLoading(false);
-        } else if (data.status === "error") {
+        } else if ((await data.status) === "error") {
           console.log(data.code, data.message);
         }
       }
