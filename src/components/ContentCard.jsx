@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
 } from "@mui/material";
-import reptile from "../images/contemplative-reptile.jpg";
+import reptile from "../images/placeholder.png";
 
 const ContentCard = ({ article }) => {
   const { author, title, description, url, urlToImage } = article;

@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Box,
-  List,
-  Divider,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import { Box, List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import AnnouncementIcon from "@mui/icons-material/Announcement";
 import BusinessIcon from "@mui/icons-material/Business";
 import TheatersIcon from "@mui/icons-material/Theaters";

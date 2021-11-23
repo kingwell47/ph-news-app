@@ -12,6 +12,7 @@ import { styled, alpha } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import ContentDrawer from "./ContentDrawer";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
 const Navbar = ({ category, setCategory, setTopic, topic }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -108,6 +109,7 @@ const Navbar = ({ category, setCategory, setTopic, topic }) => {
             onClick={toggleDrawer(true)}
           >
             {topic ? topic : category}
+            <ArrowDropDownIcon sx={{ alignSelf: "flex-end" }} />
           </Typography>
           <Search>
             <SearchIconWrapper>
