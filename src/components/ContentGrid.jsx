@@ -6,7 +6,7 @@ import ContentCard from "./ContentCard";
 require("dotenv").config();
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api/articles",
+  baseURL: "/api/articles",
 });
 
 const ContentGrid = ({ category, topic }) => {
