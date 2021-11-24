@@ -6,7 +6,7 @@ import ContentCard from "./ContentCard";
 require("dotenv").config();
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL: "http://localhost:5000/api/articles",
 });
 
 const ContentGrid = ({ category, topic }) => {
@@ -22,7 +22,6 @@ const ContentGrid = ({ category, topic }) => {
             params: {
               country: "ph",
               category,
-              apiKey: process.env.REACT_APP_NEWS_API_KEY,
             },
           })
           .then(({ data }) => {
@@ -39,7 +38,6 @@ const ContentGrid = ({ category, topic }) => {
           .get("/everything", {
             params: {
               q: topic,
-              apiKey: process.env.REACT_APP_NEWS_API_KEY,
             },
           })
           .then(({ data }) => {
