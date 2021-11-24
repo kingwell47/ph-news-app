@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
+const path = require("path");
 require("dotenv").config();
 
 let app = express();
@@ -21,6 +22,16 @@ app.get("/api/articles/:modifier", async (req, res) => {
       console.log(err);
     });
 });
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  });
+}
 
 app.use(function (req, res, next) {
   res.status(404).type("text").send("Not Found");
