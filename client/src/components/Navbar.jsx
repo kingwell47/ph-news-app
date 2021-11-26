@@ -7,15 +7,21 @@ import {
   Typography,
   IconButton,
   InputBase,
+  Button,
+  Link,
 } from "@mui/material";
-import { styled, alpha } from "@mui/material/styles";
+import { styled, alpha, useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import ContentDrawer from "./ContentDrawer";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
-const Navbar = ({ category, setCategory, setTopic, topic }) => {
+const Navbar = ({ category, setCategory, setTopic, topic, modeToggle }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const theme = useTheme();
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -94,22 +100,25 @@ const Navbar = ({ category, setCategory, setTopic, topic }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, cursor: "pointer" }}
-            onClick={backToGeneral}
-          >
-            PH Top News
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Link
+              onClick={backToGeneral}
+              sx={{ cursor: "pointer" }}
+              color="inherit"
+              underline="hover"
+            >
+              PH Top News
+            </Link>
           </Typography>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, cursor: "pointer" }}
-            onClick={toggleDrawer(true)}
-          >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {topic ? topic : category}
-            <ArrowDropDownIcon sx={{ alignSelf: "flex-end" }} />
+            <Button
+              onClick={toggleDrawer(true)}
+              sx={{ cursor: "pointer" }}
+              color="inherit"
+            >
+              <ArrowDropDownIcon color="inherit" />
+            </Button>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -121,7 +130,13 @@ const Navbar = ({ category, setCategory, setTopic, topic }) => {
               onKeyDown={(e) => handleSearch(e)}
             />
           </Search>
-          {/* <Button color="inherit">Login</Button> */}
+          <Button color="inherit" onClick={modeToggle} title="Toggle Dark Mode">
+            {theme.palette.mode === "dark" ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon />
+            )}
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
