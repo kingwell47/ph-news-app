@@ -44,6 +44,7 @@ Users should be able to:
 - [Material UI](https://mui.com/) - React UI library
 - [React](https://reactjs.org/) - JS library
 - [Heroku](heroku.com) - Cloud application platform
+- [News API](https://newsapi.org/)
 
 ### What I learned
 
@@ -92,7 +93,6 @@ This was just a small app to help me learn Material UI so further customization 
 
 - [Material UI Tutorial by The Net Ninja](https://www.youtube.com/watch?v=0KEpWHtG10M&list=PL4cUxeGkcC9gjxLvV4VEkZ6H6H4yWuS58) - This helped me understand what to do with the Material UI components.
 - [Axios Crash Course by Traversy Media](https://www.youtube.com/watch?v=6LyagkoRWYA) - Using Axios for both back-end and front-end application.
-- [News API](https://newsapi.org/) - Good for providing actual news for learning API.
 
 ## Author
 
