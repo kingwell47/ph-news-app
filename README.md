@@ -2,7 +2,7 @@
 
 ## Top News and Topic Search
 
-This is a news app.
+This is a news app using the newsapi.org api service focused on the Philippines.
 
 ## Table of contents
 
@@ -24,12 +24,9 @@ This is a news app.
 
 Users should be able to:
 
-- View the optimal layout for the site depending on their device's screen size
-- See hover states for all interactive elements on the page
-- Open a lightbox gallery by clicking on the large product image
-- Switch the large product image by clicking on the small thumbnail images
-- Add items to the cart
-- View the cart and remove items from it
+- Select categories of news to focus on with a pop-up menu.
+- Search for a topic that will display news from that topic.
+- Switch to dark mode/light mode with a button press. The app will also detect their system preferences on first load.
 
 ### Screenshot
 
@@ -37,87 +34,65 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: https://www.frontendmentor.io/solutions/product-page-using-typescript-and-react--4n3Q7pI0
-- Live Site URL: https://kingwell47.github.io/fem-product-page/
+- Live Site URL: https://ph-news-app.herokuapp.com/
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
-- SCSS
-- Flexbox
-- TypeScript
-- Mobile-first workflow
+- Express JS
+- [Material UI](https://mui.com/) - React UI library
 - [React](https://reactjs.org/) - JS library
+- [Heroku](heroku.com) - Cloud application platform
 
 ### What I learned
 
-This is my first time using TypeScript and the autocomplete was really nice to have:
+Setting up a simple server to get the data from the API:
 
-```ts
-export type ItemContent = {
-  itemName: string;
-  amount: number;
-  price: number;
-  discount: number;
-  ogPrice: number;
-  image: string;
-};
-
-const handleAddItem = (): void => {
-  if (!amount) return;
-  let inCart: ItemContent[] | null = cartItems.filter(
-    (item): boolean => item.itemName === itemName
-  );
-  if (inCart.length >= 1) return;
-
-  const newItem: ItemContent = {
-    itemName,
-    amount,
-    price,
-    discount,
-    ogPrice,
-    image,
-  };
-  setCartItems((prev: ItemContent[]) => [...prev, newItem]);
-};
+```js
+app.get("/api/articles/:modifier", async (req, res) => {
+  await axios
+    .get(`${process.env.NEWS_BASE_URL}${req.params.modifier}`, {
+      params: { ...req.query, apiKey: process.env.NEWS_API_KEY },
+    })
+    .then(({ data }) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 ```
 
-The useContext hook was also really good to use for global states:
+Material UI was a quick way of setting up UI components and themes:
 
-```ts
-export const CartContext = createContext<ProviderContext>({
-  cartItems: [],
-  setCartItems: () => {},
-});
-
-type Props = {
-  children: JSX.Element;
-};
-
-export const CartProvider = ({ children }: Props): JSX.Element => {
-  const [cartItems, setCartItems] = useState<ItemContent[]>([]);
-  return (
-    <CartContext.Provider value={{ cartItems, setCartItems }}>
-      {children}
-    </CartContext.Provider>
-  );
-};
+```jsx
+<ColorModeContext.Provider value={colorMode}>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Container maxWidth="xl" sx={{ paddingTop: 15, paddingBottom: 5 }}>
+      <Navbar
+        category={category}
+        setCategory={setCategory}
+        setTopic={setTopic}
+        topic={topic}
+        modeToggle={colorMode.toggleColorMode}
+      />
+      <ContentGrid category={category} topic={topic} />
+    </Container>
+  </ThemeProvider>
+</ColorModeContext.Provider>
 ```
 
 ### Continued development
 
-The lightbox slider becomes not synced to the page slider when it's clicked after being closed, syncing it would probably the next step.
-
-Components don't have animations when exiting, mostly because making Framer Motion or React-Spring work with TypeScript requires more research that I'm not sure if worth it for this project.
+This was just a small app to help me learn Material UI so further customization of the UI will need to be done.
 
 ### Useful resources
 
-- [Build a React Image Slider Carousel from Scratch Tutorial by Brian Design](https://www.youtube.com/watch?v=l1MYfu5YWHc) - This helped me figure out the image slider component.
-- [React Hooks useContext Tutorial (Storing a User) by Ben Awad](https://youtu.be/lhMKvyLRWo0) - This helped me implement the Cart Context for storing the Cart State.
-- [Build a Shopping Cart with React and TypeScript - Tutorial by freeCodeCamp.org](https://youtu.be/sfmL6bGbiN8) - Seeing TypeScript being used for a similar project helped me immensely.
-- [Passing props in React using Typescript by Mike Conner](https://dev.to/mconner89/passing-props-in-react-using-typescript-20lm) - Helped me figure out how to pass props to components.
+- [Material UI Tutorial by The Net Ninja](https://www.youtube.com/watch?v=0KEpWHtG10M&list=PL4cUxeGkcC9gjxLvV4VEkZ6H6H4yWuS58) - This helped me understand what to do with the Material UI components.
+- [Axios Crash Course by Traversy Media](https://www.youtube.com/watch?v=6LyagkoRWYA) - Using Axios for both back-end and front-end application.
+- [News API](https://newsapi.org/) - Good for providing actual news for learning API.
 
 ## Author
 
